@@ -32,8 +32,7 @@ EXCEL_FILE = r"quotation_responses.xlsx"
 st.set_page_config(
     page_title="BMW Vehicle Quotation Request",
     page_icon="🚘",
-    layout="centered",
-    initial_sidebar_state="collapsed"
+    layout="centered"
 )
 
 
@@ -44,19 +43,28 @@ st.set_page_config(
 if "scratch_discount" not in st.session_state:
 
     st.session_state["scratch_discount"] = random.choice(
-        list(range(25000, 100001, 5000))
+        list(
+            range(
+                25000,
+                100001,
+                5000
+            )
+        )
     )
 
 
 if "pdf_file" not in st.session_state:
+
     st.session_state["pdf_file"] = None
 
 
 if "pdf_name" not in st.session_state:
+
     st.session_state["pdf_name"] = None
 
 
 if "purchase_continue" not in st.session_state:
+
     st.session_state["purchase_continue"] = False
 
 
@@ -68,6 +76,7 @@ def format_inr(amount):
 
     try:
         amount = int(float(amount))
+
     except Exception:
         return "₹0"
 
@@ -80,7 +89,9 @@ def format_inr(amount):
     else:
 
         last_three = amount_str[-3:]
+
         remaining = amount_str[:-3]
+
         parts = []
 
         while len(remaining) > 2:
@@ -93,6 +104,7 @@ def format_inr(amount):
             remaining = remaining[:-2]
 
         if remaining:
+
             parts.insert(
                 0,
                 remaining
@@ -100,18 +112,21 @@ def format_inr(amount):
 
         formatted = (
             ",".join(parts)
-            + ","
-            + last_three
+            +
+            ","
+            +
+            last_three
         )
 
     if amount < 0:
+
         return "-₹" + formatted
 
     return "₹" + formatted
 
 
 # ============================================================
-# REPORTLAB UNICODE FONT
+# PDF FONT
 # ============================================================
 
 def register_pdf_font():
@@ -119,9 +134,13 @@ def register_pdf_font():
     possible_fonts = [
 
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+
         "C:/Windows/Fonts/DejaVuSans.ttf",
+
         "C:/Windows/Fonts/arial.ttf",
+
         "C:/Windows/Fonts/ARIAL.TTF"
 
     ]
@@ -173,7 +192,7 @@ PDF_FONT = register_pdf_font()
 
 
 # ============================================================
-# LUXURY UI
+# PREMIUM LUXURY UI
 # ============================================================
 
 st.markdown(
@@ -181,108 +200,69 @@ st.markdown(
 <style>
 
 /* ============================================================
-   IMPORT PREMIUM WEB FONTS
+   GOOGLE LUXURY FONTS
    ============================================================ */
 
 @import url(
-'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap'
+    'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap'
 );
 
 
 /* ============================================================
-   GLOBAL VARIABLES
-   ============================================================ */
-
-:root {
-
-    --luxury-black: #181614;
-
-    --luxury-charcoal: #24201C;
-
-    --luxury-brown: #40372F;
-
-    --luxury-gold: #B18A4A;
-
-    --luxury-gold-light: #D4B36A;
-
-    --luxury-champagne: #E7D3A4;
-
-    --luxury-ivory: #FFFDF8;
-
-    --luxury-cream: #F7F1E7;
-
-    --luxury-beige: #E8DDCC;
-
-    --luxury-text: #2B2723;
-
-    --luxury-muted: #766C60;
-
-    --luxury-border: #D6C4A4;
-}
-
-
-/* ============================================================
-   PAGE
+   GLOBAL
    ============================================================ */
 
 .stApp {
 
     background:
-        radial-gradient(
-            circle at top center,
-            #F7F1E7 0%,
-            #E8DDCC 45%,
-            #DDD0BD 100%
+        linear-gradient(
+            135deg,
+            #EEE6DA 0%,
+            #E7DCCB 48%,
+            #EFE8DE 100%
         );
 
-    color: var(--luxury-text);
-}
-
-
-.main {
-
-    background: transparent;
+    color:
+        #29241F;
 }
 
 
 .block-container {
 
-    max-width: 1080px !important;
+    max-width:
+        1020px !important;
 
-    padding-top: 1.5rem !important;
+    padding-top:
+        1.4rem !important;
 
-    padding-bottom: 3rem !important;
-
-    padding-left: 2rem !important;
-
-    padding-right: 2rem !important;
+    padding-bottom:
+        3rem !important;
 }
 
 
-/* ============================================================
-   HIDE STREAMLIT ELEMENTS
-   ============================================================ */
-
 #MainMenu {
 
-    visibility: hidden;
+    visibility:
+        hidden;
 }
 
 
 footer {
 
-    visibility: hidden !important;
+    visibility:
+        hidden !important;
 }
 
 
-header[data-testid="stHeader"] {
+header {
 
-    background: transparent !important;
+    visibility:
+        hidden !important;
 }
 
 
 /* ============================================================
-   GLOBAL TYPOGRAPHY
+   GLOBAL FONT
    ============================================================ */
 
 html,
@@ -293,154 +273,143 @@ body,
     font-family:
         "Inter",
         Arial,
-        sans-serif !important;
-}
-
-
-p,
-div,
-span {
-
-    font-family:
-        "Inter",
-        Arial,
         sans-serif;
 }
 
 
 /* ============================================================
-   PREMIUM HEADER
+   LUXURY HEADER
    ============================================================ */
 
 .luxury-header {
 
-    position: relative;
+    position:
+        relative;
 
-    text-align: center;
+    text-align:
+        center;
 
-    margin-top: 8px;
+    margin-top:
+        8px;
 
-    margin-bottom: 42px;
+    margin-bottom:
+        42px;
 
-    padding: 46px 30px 40px 30px;
+    padding:
+        38px 28px 35px 28px;
 
     background:
         linear-gradient(
             145deg,
-            #151311 0%,
-            #2B2621 48%,
+            #181614 0%,
+            #28231F 42%,
             #171513 100%
         );
 
-    border-radius: 8px;
-
     border:
-        1px solid
-        rgba(202,166,91,0.65);
+        1px solid #8D7044;
+
+    border-radius:
+        8px;
 
     box-shadow:
-        0 22px 50px
-        rgba(40,32,24,0.28);
+        0 18px 45px
+        rgba(35,28,21,0.28);
 
-    overflow: hidden;
+    overflow:
+        hidden;
 }
 
 
 .luxury-header::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    top: 8px;
+    top:
+        8px;
 
-    left: 8px;
+    left:
+        8px;
 
-    right: 8px;
+    right:
+        8px;
 
-    bottom: 8px;
+    bottom:
+        8px;
 
     border:
         1px solid
-        rgba(218,181,104,0.24);
+        rgba(210,174,103,0.25);
 
-    border-radius: 5px;
+    border-radius:
+        5px;
 
-    pointer-events: none;
-}
-
-
-.luxury-header::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 300px;
-
-    height: 300px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(209,171,94,0.08),
-            transparent 70%
-        );
-
-    top: -150px;
-
-    right: -100px;
-
-    pointer-events: none;
+    pointer-events:
+        none;
 }
 
 
 .header-top-line {
 
-    position: absolute;
+    position:
+        absolute;
 
-    top: 0;
+    top:
+        0;
 
-    left: 0;
+    left:
+        0;
 
-    right: 0;
+    right:
+        0;
 
-    height: 3px;
+    height:
+        3px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            #A98242,
-            #E7C97E,
-            #A98242,
+            #A77E3F,
+            #F0D28B,
+            #A77E3F,
             transparent
         );
 }
 
 
+/* ============================================================
+   BMW WORDMARK
+   ============================================================ */
+
 .bmw-brand {
 
-    position: relative;
-
-    color: #F9F3E9;
+    color:
+        #F8F1E7;
 
     font-family:
         "Cormorant Garamond",
         Georgia,
         serif;
 
-    font-size: 58px;
+    font-size:
+        52px;
 
-    font-weight: 600;
+    font-weight:
+        600;
 
-    letter-spacing: 18px;
+    letter-spacing:
+        14px;
 
-    line-height: 1;
+    line-height:
+        1;
 
-    margin-left: 18px;
+    margin-left:
+        14px;
 
     text-shadow:
         0 3px 12px
@@ -450,52 +419,67 @@ span {
 
 .bmw-subtitle {
 
-    color: #CBA962;
+    color:
+        #D2B06B;
 
     font-family:
         "Inter",
         Arial,
         sans-serif;
 
-    font-size: 10px;
+    font-size:
+        10px;
 
-    font-weight: 600;
+    font-weight:
+        600;
 
-    letter-spacing: 6px;
+    letter-spacing:
+        5px;
 
-    margin-top: 16px;
+    margin-top:
+        14px;
 }
 
 
+/* ============================================================
+   HEADER DIVIDER
+   ============================================================ */
+
 .header-divider {
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    justify-content: center;
+    justify-content:
+        center;
 
-    gap: 14px;
+    gap:
+        14px;
 
-    max-width: 360px;
+    max-width:
+        330px;
 
     margin:
-        20px auto
-        18px auto;
+        20px auto 17px auto;
 }
 
 
 .header-divider span {
 
-    height: 1px;
+    height:
+        1px;
 
-    flex: 1;
+    flex:
+        1;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            #A98242
+            #9C7A45
         );
 }
 
@@ -505,7 +489,7 @@ span {
     background:
         linear-gradient(
             90deg,
-            #A98242,
+            #9C7A45,
             transparent
         );
 }
@@ -513,141 +497,61 @@ span {
 
 .divider-diamond {
 
-    color: #D5B36A;
+    color:
+        #D8B76C;
 
-    font-size: 8px;
+    font-size:
+        9px;
 }
 
 
 .bmw-tagline {
 
-    color: #F3E9DA;
+    color:
+        #F0E6D8;
 
     font-family:
         "Cormorant Garamond",
         Georgia,
         serif;
 
-    font-size: 19px;
+    font-size:
+        19px;
 
-    font-style: italic;
+    font-weight:
+        500;
 
-    letter-spacing: 3px;
+    font-style:
+        italic;
+
+    letter-spacing:
+        2.5px;
 }
 
 
 .bmw-description {
 
-    color: #BDB1A1;
+    color:
+        #BEB1A0;
 
     font-family:
         "Inter",
         Arial,
         sans-serif;
 
-    font-size: 9px;
+    font-size:
+        9px;
 
-    letter-spacing: 2px;
+    letter-spacing:
+        1.8px;
 
-    margin-top: 11px;
+    margin-top:
+        10px;
 }
 
 
 /* ============================================================
-   FORM CONTAINER
-   ============================================================ */
-
-[data-testid="stForm"] {
-
-    background:
-        rgba(255,253,248,0.88) !important;
-
-    border:
-        1px solid
-        rgba(177,138,74,0.25) !important;
-
-    border-radius: 10px !important;
-
-    padding:
-        12px 22px 24px 22px !important;
-
-    box-shadow:
-        0 15px 35px
-        rgba(61,47,31,0.08) !important;
-
-    backdrop-filter:
-        blur(6px);
-}
-
-
-/* ============================================================
-   SECTION TITLE
-   ============================================================ */
-
-.section-title {
-
-    position: relative;
-
-    background:
-        linear-gradient(
-            110deg,
-            #211E1A,
-            #332C25,
-            #211E1A
-        );
-
-    color: #F5EBDD;
-
-    padding:
-        15px 20px 15px 23px;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 17px;
-
-    font-weight: 600;
-
-    letter-spacing: 3px;
-
-    border-radius: 5px;
-
-    border:
-        1px solid
-        rgba(177,138,74,0.45);
-
-    border-left:
-        4px solid
-        #C39B55;
-
-    margin-top: 30px;
-
-    margin-bottom: 21px;
-
-    box-shadow:
-        0 7px 18px
-        rgba(38,31,24,0.10);
-}
-
-
-.section-title::after {
-
-    content: "◆";
-
-    float: right;
-
-    color: #C7A05B;
-
-    font-size: 7px;
-
-    margin-top: 4px;
-}
-
-
-/* ============================================================
-   LABELS
+   FORM LABELS
    ============================================================ */
 
 .stTextInput label,
@@ -655,12 +559,12 @@ span {
 .stTextArea label,
 .stDateInput label,
 .stNumberInput label,
-.stRadio label,
+.stRadio > label,
 .stMultiSelect label,
 .stCheckbox label {
 
     color:
-        #493F35 !important;
+        #51473C !important;
 
     font-family:
         "Inter",
@@ -675,92 +579,64 @@ span {
 
     letter-spacing:
         0.7px !important;
-
-    text-transform:
-        uppercase !important;
 }
 
 
 /* ============================================================
-   INPUT WRAPPERS
+   TEXT INPUTS
    ============================================================ */
 
-.stTextInput > div > div,
-.stNumberInput > div > div,
-.stDateInput > div > div,
-.stTextArea > div > div {
+.stTextInput > div > div {
 
     background:
         #FFFDF9 !important;
 
     border:
-        1px solid
-        #D8CCBB !important;
+        1px solid #D6C9B8 !important;
 
     border-radius:
         4px !important;
 
     box-shadow:
         0 2px 8px
-        rgba(50,40,30,0.04) !important;
+        rgba(44,35,27,0.035) !important;
 
     transition:
         all 0.25s ease !important;
 }
 
 
-/* ============================================================
-   INPUT HOVER
-   ============================================================ */
-
-.stTextInput > div > div:hover,
-.stNumberInput > div > div:hover,
-.stDateInput > div > div:hover,
-.stTextArea > div > div:hover {
+.stTextInput > div > div:hover {
 
     border-color:
-        #B89A65 !important;
-
-    box-shadow:
-        0 4px 12px
-        rgba(177,138,74,0.10) !important;
-}
-
-
-/* ============================================================
-   INPUT FOCUS
-   ============================================================ */
-
-.stTextInput > div > div:focus-within,
-.stNumberInput > div > div:focus-within,
-.stDateInput > div > div:focus-within,
-.stTextArea > div > div:focus-within {
-
-    border:
-        1px solid
         #B18A4A !important;
 
     box-shadow:
-        0 0 0 2px
-        rgba(177,138,74,0.12),
-        0 5px 15px
-        rgba(177,138,74,0.10) !important;
+        0 4px 12px
+        rgba(177,138,74,0.09) !important;
 }
 
 
-/* ============================================================
-   TEXT INPUT
-   ============================================================ */
+.stTextInput > div > div:focus-within {
 
-.stTextInput input,
-.stNumberInput input,
-.stDateInput input,
-.stTextArea textarea {
+    border-color:
+        #A77E3F !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(167,126,63,0.12) !important;
+}
+
+
+.stTextInput input {
 
     background:
         #FFFDF9 !important;
 
     color:
+        #29241F !important;
+
+    -webkit-text-fill-color:
         #29241F !important;
 
     font-family:
@@ -775,100 +651,65 @@ span {
         500 !important;
 
     letter-spacing:
-        0.3px !important;
-
-    border:
-        none !important;
-
-    outline:
-        none !important;
+        0.2px !important;
 }
 
 
-/* ============================================================
-   PLACEHOLDER
-   ============================================================ */
-
-.stTextInput input::placeholder,
-.stNumberInput input::placeholder,
-.stTextArea textarea::placeholder {
+.stTextInput input::placeholder {
 
     color:
-        #A69A8C !important;
+        #9A8E80 !important;
 
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif !important;
-
-    font-style:
-        italic !important;
+    -webkit-text-fill-color:
+        #9A8E80 !important;
 
     opacity:
-        0.85 !important;
+        1 !important;
 }
 
 
 /* ============================================================
-   TEXTAREA
+   NUMBER INPUT
    ============================================================ */
 
-.stTextArea textarea {
-
-    min-height:
-        120px !important;
-
-    line-height:
-        1.6 !important;
-
-    resize:
-        vertical !important;
-}
-
-
-/* ============================================================
-   SELECT BOX
-   ============================================================ */
-
-.stSelectbox div[data-baseweb="select"],
-.stMultiSelect div[data-baseweb="select"] {
+.stNumberInput > div > div {
 
     background:
         #FFFDF9 !important;
 
     border:
-        1px solid
-        #D8CCBB !important;
+        1px solid #D6C9B8 !important;
 
     border-radius:
         4px !important;
 
-    min-height:
-        44px !important;
-
     box-shadow:
         0 2px 8px
-        rgba(50,40,30,0.04) !important;
-
-    transition:
-        all 0.25s ease !important;
+        rgba(44,35,27,0.035) !important;
 }
 
 
-.stSelectbox div[data-baseweb="select"]:hover,
-.stMultiSelect div[data-baseweb="select"]:hover {
+.stNumberInput > div > div:focus-within {
 
     border-color:
-        #B18A4A !important;
+        #A77E3F !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(167,126,63,0.12) !important;
 }
 
 
-/* ============================================================
-   SELECTED VALUE
-   ============================================================ */
+.stNumberInput input {
 
-.stSelectbox div[data-baseweb="select"] div,
-.stMultiSelect div[data-baseweb="select"] div {
+    background:
+        #FFFDF9 !important;
+
+    color:
+        #29241F !important;
+
+    -webkit-text-fill-color:
+        #29241F !important;
 
     font-family:
         "Cormorant Garamond",
@@ -878,44 +719,176 @@ span {
     font-size:
         16px !important;
 
+    font-weight:
+        600 !important;
+}
+
+
+/* Number buttons */
+
+.stNumberInput button {
+
     color:
-        #302A24 !important;
+        #9C7A45 !important;
+
+    background:
+        transparent !important;
+
+    border:
+        none !important;
 }
 
 
 /* ============================================================
-   DROPDOWN MENU
+   ENQUIRY DATE - IMPORTANT FIX
    ============================================================ */
 
-div[data-baseweb="popover"] {
-
-    border:
-        1px solid
-        #C8AD7B !important;
-
-    border-radius:
-        5px !important;
-
-    box-shadow:
-        0 15px 35px
-        rgba(38,29,21,0.20) !important;
-
-    overflow:
-        hidden !important;
-}
-
-
-div[role="listbox"] {
+.stDateInput [data-baseweb="input"] {
 
     background:
         #FFFDF9 !important;
 
-    padding:
-        5px !important;
+    border:
+        1px solid #D6C9B8 !important;
+
+    border-radius:
+        4px !important;
+
+    box-shadow:
+        0 2px 8px
+        rgba(44,35,27,0.035) !important;
+
+    transition:
+        all 0.25s ease !important;
 }
 
 
-div[role="option"] {
+.stDateInput [data-baseweb="input"]:hover {
+
+    border-color:
+        #B18A4A !important;
+
+    box-shadow:
+        0 4px 12px
+        rgba(177,138,74,0.09) !important;
+}
+
+
+.stDateInput [data-baseweb="input"]:focus-within {
+
+    border-color:
+        #A77E3F !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(167,126,63,0.12) !important;
+}
+
+
+.stDateInput input {
+
+    background:
+        #FFFDF9 !important;
+
+    color:
+        #29241F !important;
+
+    -webkit-text-fill-color:
+        #29241F !important;
+
+    opacity:
+        1 !important;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif !important;
+
+    font-size:
+        16px !important;
+
+    font-weight:
+        600 !important;
+}
+
+
+.stDateInput input::placeholder {
+
+    color:
+        #8B7F71 !important;
+
+    -webkit-text-fill-color:
+        #8B7F71 !important;
+
+    opacity:
+        1 !important;
+}
+
+
+/* Calendar icon */
+
+.stDateInput svg {
+
+    color:
+        #A77E3F !important;
+
+    fill:
+        #A77E3F !important;
+
+    stroke:
+        #A77E3F !important;
+}
+
+
+/* ============================================================
+   SELECT BOX
+   ============================================================ */
+
+.stSelectbox div[data-baseweb="select"] {
+
+    background:
+        #FFFDF9 !important;
+
+    border:
+        1px solid #D6C9B8 !important;
+
+    border-radius:
+        4px !important;
+
+    min-height:
+        44px !important;
+
+    box-shadow:
+        0 2px 8px
+        rgba(44,35,27,0.035) !important;
+
+    transition:
+        all 0.25s ease !important;
+}
+
+
+.stSelectbox div[data-baseweb="select"]:hover {
+
+    border-color:
+        #B18A4A !important;
+}
+
+
+.stSelectbox div[data-baseweb="select"]:focus-within {
+
+    border-color:
+        #A77E3F !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(167,126,63,0.12) !important;
+}
+
+
+.stSelectbox div[data-baseweb="select"] * {
+
+    color:
+        #29241F !important;
 
     font-family:
         "Cormorant Garamond",
@@ -925,48 +898,264 @@ div[role="option"] {
     font-size:
         15px !important;
 
-    color:
-        #302A24 !important;
-
-    border-radius:
-        3px !important;
-
-    padding:
-        10px 12px !important;
+    font-weight:
+        500 !important;
 }
 
 
-div[role="option"]:hover {
+/* Select arrow */
 
-    background:
-        #F0E4D0 !important;
+.stSelectbox svg {
 
     color:
-        #7C5D2E !important;
+        #A77E3F !important;
 }
 
 
 /* ============================================================
-   MULTISELECT TAGS
+   MULTISELECT
    ============================================================ */
+
+.stMultiSelect div[data-baseweb="select"] {
+
+    background:
+        #FFFDF9 !important;
+
+    border:
+        1px solid #D6C9B8 !important;
+
+    border-radius:
+        4px !important;
+
+    min-height:
+        46px !important;
+
+    box-shadow:
+        0 2px 8px
+        rgba(44,35,27,0.035) !important;
+}
+
+
+.stMultiSelect div[data-baseweb="select"]:focus-within {
+
+    border-color:
+        #A77E3F !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(167,126,63,0.12) !important;
+}
+
+
+.stMultiSelect div[data-baseweb="select"] * {
+
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif !important;
+
+    color:
+        #29241F !important;
+}
+
+
+/* Selected tags */
 
 .stMultiSelect span[data-baseweb="tag"] {
 
     background:
-        linear-gradient(
-            135deg,
-            #B18A4A,
-            #C8A45D
-        ) !important;
-
-    color:
-        white !important;
+        #E7D6B5 !important;
 
     border:
-        none !important;
+        1px solid #B18A4A !important;
+
+    color:
+        #49371F !important;
 
     border-radius:
         3px !important;
+}
+
+
+/* ============================================================
+   TEXT AREA
+   ============================================================ */
+
+.stTextArea > div > div {
+
+    background:
+        #FFFDF9 !important;
+
+    border:
+        1px solid #D6C9B8 !important;
+
+    border-radius:
+        4px !important;
+
+    box-shadow:
+        0 2px 8px
+        rgba(44,35,27,0.035) !important;
+}
+
+
+.stTextArea > div > div:focus-within {
+
+    border-color:
+        #A77E3F !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(167,126,63,0.12) !important;
+}
+
+
+.stTextArea textarea {
+
+    background:
+        #FFFDF9 !important;
+
+    color:
+        #29241F !important;
+
+    -webkit-text-fill-color:
+        #29241F !important;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif !important;
+
+    font-size:
+        16px !important;
+
+    line-height:
+        1.5 !important;
+}
+
+
+.stTextArea textarea::placeholder {
+
+    color:
+        #9A8E80 !important;
+
+    -webkit-text-fill-color:
+        #9A8E80 !important;
+}
+
+
+/* ============================================================
+   SECTION TITLES
+   ============================================================ */
+
+.section-title {
+
+    position:
+        relative;
+
+    background:
+        linear-gradient(
+            100deg,
+            #26211D,
+            #383029,
+            #26211D
+        );
+
+    color:
+        #F6EBDD;
+
+    padding:
+        14px 20px 13px 22px;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size:
+        17px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        3px;
+
+    border:
+        1px solid
+        rgba(190,153,85,0.28);
+
+    border-left:
+        4px solid #C7A15D;
+
+    margin-top:
+        32px;
+
+    margin-bottom:
+        19px;
+
+    border-radius:
+        4px;
+
+    box-shadow:
+        0 6px 16px
+        rgba(0,0,0,0.11);
+}
+
+
+.section-title::after {
+
+    content:
+        "◆";
+
+    position:
+        absolute;
+
+    right:
+        17px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        #C8A45D;
+
+    font-size:
+        7px;
+}
+
+
+/* ============================================================
+   RADIO / EXCHANGE OPTIONS
+   ============================================================ */
+
+.stRadio > div {
+
+    display:
+        flex !important;
+
+    flex-direction:
+        row !important;
+
+    gap:
+        12px !important;
+
+    align-items:
+        stretch !important;
+
+    margin-top:
+        5px !important;
+}
+
+
+/* Question */
+
+.stRadio > label {
+
+    color:
+        #51473C !important;
 
     font-family:
         "Inter",
@@ -974,73 +1163,159 @@ div[role="option"]:hover {
         sans-serif !important;
 
     font-size:
-        10px !important;
+        11px !important;
 
     font-weight:
         600 !important;
 
     letter-spacing:
-        0.3px !important;
+        0.7px !important;
 }
 
 
-.stMultiSelect span[data-baseweb="tag"] svg {
+/* Individual option */
 
-    fill:
-        white !important;
-}
+.stRadio > div > label {
 
+    position:
+        relative !important;
 
-/* ============================================================
-   RADIO BUTTONS
-   ============================================================ */
+    display:
+        flex !important;
 
-.stRadio > div {
+    align-items:
+        center !important;
 
-    gap:
-        14px !important;
-}
+    justify-content:
+        center !important;
 
+    min-width:
+        115px !important;
 
-.stRadio label {
-
-    background:
-        rgba(255,253,248,0.8) !important;
-
-    border:
-        1px solid
-        #D8CCBB !important;
+    min-height:
+        46px !important;
 
     padding:
-        8px 15px !important;
-
-    border-radius:
-        20px !important;
-
-    transition:
-        all 0.2s ease !important;
-}
-
-
-.stRadio label:hover {
-
-    border-color:
-        #B18A4A !important;
+        8px 20px !important;
 
     background:
-        #F7F0E3 !important;
+        #FFFDF9 !important;
+
+    border:
+        1px solid #D6C9B8 !important;
+
+    border-radius:
+        5px !important;
+
+    color:
+        #302A24 !important;
+
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        600 !important;
+
+    letter-spacing:
+        0.5px !important;
+
+    cursor:
+        pointer !important;
+
+    box-shadow:
+        0 2px 8px
+        rgba(44,35,27,0.04) !important;
+
+    transition:
+        all 0.25s ease !important;
 }
 
 
-/* Radio circle */
+/* Option text */
 
-.stRadio input:checked + div {
+.stRadio > div > label p {
 
-    background-color:
-        #B18A4A !important;
+    color:
+        #302A24 !important;
+
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif !important;
+
+    font-size:
+        12px !important;
+
+    font-weight:
+        600 !important;
+
+    margin:
+        0 !important;
+}
+
+
+/* Hover */
+
+.stRadio > div > label:hover {
+
+    background:
+        #F5EDDF !important;
 
     border-color:
         #B18A4A !important;
+
+    box-shadow:
+        0 5px 14px
+        rgba(177,138,74,0.13) !important;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* Hide default radio appearance visually */
+
+.stRadio input {
+
+    accent-color:
+        #A77E3F !important;
+}
+
+
+/* Selected option */
+
+.stRadio > div > label:has(input:checked) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #F3E6CF,
+            #E6D0A8
+        ) !important;
+
+    border:
+        1px solid #A77E3F !important;
+
+    box-shadow:
+        0 6px 17px
+        rgba(167,126,63,0.18) !important;
+}
+
+
+/* Selected option text */
+
+.stRadio > div > label:has(input:checked) p {
+
+    color:
+        #513D20 !important;
+
+    font-weight:
+        700 !important;
 }
 
 
@@ -1048,42 +1323,108 @@ div[role="option"]:hover {
    CHECKBOX
    ============================================================ */
 
+.stCheckbox {
+
+    margin-top:
+        10px !important;
+}
+
+
 .stCheckbox label {
 
-    padding:
-        9px 13px !important;
+    color:
+        #433A31 !important;
 
-    background:
-        #F8F2E9 !important;
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif !important;
 
-    border:
-        1px solid
-        #D8CCBB !important;
+    font-size:
+        11px !important;
+
+    font-weight:
+        500 !important;
+}
+
+
+.stCheckbox input {
+
+    accent-color:
+        #A77E3F !important;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.stButton > button,
+.stFormSubmitButton button,
+.stDownloadButton button {
+
+    min-height:
+        50px !important;
 
     border-radius:
         4px !important;
+
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif !important;
+
+    font-size:
+        11px !important;
+
+    font-weight:
+        700 !important;
+
+    letter-spacing:
+        2px !important;
+
+    transition:
+        all 0.25s ease !important;
 }
 
 
-.stCheckbox label:hover {
+/* Standard button */
 
-    border-color:
-        #B18A4A !important;
+.stButton > button {
 
     background:
-        #F2E7D5 !important;
+        linear-gradient(
+            135deg,
+            #A77E3F,
+            #C29B57
+        ) !important;
+
+    color:
+        #FFFFFF !important;
+
+    border:
+        1px solid #967038 !important;
+
+    box-shadow:
+        0 5px 14px
+        rgba(130,96,43,0.18) !important;
 }
 
 
-/* Checkbox selected */
-
-.stCheckbox input:checked + div {
+.stButton > button:hover {
 
     background:
-        #B18A4A !important;
+        linear-gradient(
+            135deg,
+            #29241F,
+            #40362C
+        ) !important;
 
     border-color:
-        #B18A4A !important;
+        #B99557 !important;
+
+    transform:
+        translateY(-1px) !important;
 }
 
 
@@ -1093,49 +1434,25 @@ div[role="option"]:hover {
 
 .stFormSubmitButton button {
 
-    position:
-        relative;
+    min-height:
+        55px !important;
 
     background:
         linear-gradient(
             135deg,
-            #1D1A17,
-            #352D25
+            #211D19,
+            #3B332B
         ) !important;
 
     color:
-        #F7EFE2 !important;
+        #F5EBDD !important;
 
     border:
-        1px solid
-        #B18A4A !important;
-
-    border-radius:
-        4px !important;
-
-    height:
-        55px !important;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif !important;
-
-    font-size:
-        15px !important;
-
-    font-weight:
-        700 !important;
-
-    letter-spacing:
-        3px !important;
+        1px solid #A77E3F !important;
 
     box-shadow:
-        0 8px 20px
-        rgba(38,29,21,0.15) !important;
-
-    transition:
-        all 0.3s ease !important;
+        0 7px 18px
+        rgba(31,25,20,0.18) !important;
 }
 
 
@@ -1144,48 +1461,18 @@ div[role="option"]:hover {
     background:
         linear-gradient(
             135deg,
-            #B18A4A,
-            #C9A45F
+            #A77E3F,
+            #C09A59
         ) !important;
 
     color:
         #FFFFFF !important;
 
+    border-color:
+        #D5B776 !important;
+
     transform:
-        translateY(-2px) !important;
-
-    box-shadow:
-        0 12px 25px
-        rgba(120,88,37,0.25) !important;
-}
-
-
-/* ============================================================
-   STANDARD BUTTON
-   ============================================================ */
-
-.stButton > button {
-
-    background:
-        #2B2722 !important;
-
-    color:
-        #F5EBDD !important;
-
-    border:
-        1px solid
-        #B18A4A !important;
-
-    border-radius:
-        4px !important;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif !important;
-
-    letter-spacing:
-        2px !important;
+        translateY(-1px) !important;
 }
 
 
@@ -1195,47 +1482,122 @@ div[role="option"]:hover {
 
 .stDownloadButton button {
 
+    min-height:
+        55px !important;
+
     background:
         linear-gradient(
             135deg,
             #A77E3F,
-            #C09B59
+            #C09A59
         ) !important;
 
     color:
-        white !important;
+        #FFFFFF !important;
 
     border:
-        none !important;
-
-    border-radius:
-        4px !important;
-
-    height:
-        56px !important;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif !important;
-
-    font-size:
-        15px !important;
-
-    font-weight:
-        700 !important;
-
-    letter-spacing:
-        3px !important;
+        1px solid #967038 !important;
 
     box-shadow:
-        0 10px 25px
-        rgba(120,88,37,0.18) !important;
+        0 7px 18px
+        rgba(130,96,43,0.20) !important;
+}
+
+
+.stDownloadButton button:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #29241F,
+            #40362C
+        ) !important;
+
+    border-color:
+        #B99557 !important;
+
+    transform:
+        translateY(-1px) !important;
 }
 
 
 /* ============================================================
-   SUCCESS / WARNING / ERROR
+   CONTINUE STATUS
+   ============================================================ */
+
+.continue-status {
+
+    text-align:
+        center;
+
+    color:
+        #735C39;
+
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        1.8px;
+
+    margin-top:
+        10px;
+
+    margin-bottom:
+        6px;
+}
+
+
+/* ============================================================
+   DISCOUNT INFORMATION
+   ============================================================ */
+
+.discount-info {
+
+    text-align:
+        center;
+
+    color:
+        #765E3B;
+
+    font-family:
+        "Inter",
+        Arial,
+        sans-serif;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1.4px;
+
+    margin-top:
+        12px;
+
+    margin-bottom:
+        10px;
+}
+
+
+.discount-info b {
+
+    color:
+        #8A642B;
+
+    font-weight:
+        700;
+}
+
+
+/* ============================================================
+   ALERTS
    ============================================================ */
 
 div[data-testid="stAlert"] {
@@ -1254,107 +1616,38 @@ div[data-testid="stAlert"] {
 
 
 /* ============================================================
-   CONTINUE STATUS
+   SUCCESS MESSAGE
    ============================================================ */
 
-.continue-status {
+div[data-testid="stAlert"][data-baseweb="notification"] {
 
-    text-align:
-        center;
-
-    color:
-        #80683F;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size:
-        13px;
-
-    font-weight:
-        600;
-
-    letter-spacing:
-        2px;
-
-    padding:
-        10px;
-
-    margin-top:
-        8px;
-
-    margin-bottom:
-        4px;
-
-    border-top:
-        1px solid
-        rgba(177,138,74,0.25);
-
-    border-bottom:
-        1px solid
-        rgba(177,138,74,0.25);
+    border-left:
+        3px solid #A77E3F !important;
 }
 
 
 /* ============================================================
-   DISCOUNT INFO
+   QUOTATION DOWNLOAD HEADING
    ============================================================ */
 
-.discount-info {
-
-    text-align:
-        center;
+.stMarkdown h3 {
 
     color:
-        #786246;
-
-    font-family:
-        "Inter",
-        Arial,
-        sans-serif;
-
-    font-size:
-        10px;
-
-    letter-spacing:
-        1.8px;
-
-    margin-top:
-        13px;
-
-    margin-bottom:
-        20px;
-}
-
-
-.discount-info b {
-
-    color:
-        #9B7135;
-
-    font-weight:
-        700;
-}
-
-
-/* ============================================================
-   DOWNLOAD HEADING
-   ============================================================ */
-
-h3 {
+        #302A24 !important;
 
     font-family:
         "Cormorant Garamond",
         Georgia,
         serif !important;
 
-    color:
-        #312B25 !important;
+    font-size:
+        24px !important;
+
+    font-weight:
+        600 !important;
 
     letter-spacing:
-        2px !important;
+        1.5px !important;
 }
 
 
@@ -1368,16 +1661,17 @@ h3 {
         center;
 
     margin-top:
-        70px;
+        65px;
 
     margin-bottom:
         15px;
 
     padding:
-        32px 20px 22px 20px;
+        30px 20px 22px 20px;
 
-    position:
-        relative;
+    border-top:
+        1px solid
+        rgba(139,112,70,0.16);
 }
 
 
@@ -1393,13 +1687,13 @@ h3 {
         center;
 
     gap:
-        14px;
+        13px;
 
     max-width:
-        330px;
+        290px;
 
     margin:
-        0 auto 24px auto;
+        0 auto 22px auto;
 }
 
 
@@ -1415,7 +1709,7 @@ h3 {
         linear-gradient(
             90deg,
             transparent,
-            #B18A4A
+            #A98A59
         );
 }
 
@@ -1425,7 +1719,7 @@ h3 {
     background:
         linear-gradient(
             90deg,
-            #B18A4A,
+            #A98A59,
             transparent
         );
 }
@@ -1434,7 +1728,7 @@ h3 {
 .footer-diamond {
 
     color:
-        #B18A4A;
+        #9C7A45;
 
     font-size:
         8px;
@@ -1444,7 +1738,7 @@ h3 {
 .footer-brand {
 
     color:
-        #27221D;
+        #29241F;
 
     font-family:
         "Cormorant Garamond",
@@ -1452,23 +1746,23 @@ h3 {
         serif;
 
     font-size:
-        32px;
+        31px;
 
     font-weight:
         600;
 
     letter-spacing:
-        12px;
+        10px;
 
     margin-left:
-        12px;
+        10px;
 }
 
 
 .footer-title {
 
     color:
-        #79654A;
+        #786246;
 
     font-family:
         "Inter",
@@ -1482,7 +1776,7 @@ h3 {
         600;
 
     letter-spacing:
-        4px;
+        3px;
 
     margin-top:
         7px;
@@ -1492,7 +1786,7 @@ h3 {
 .footer-tagline {
 
     color:
-        #A17C42;
+        #A77E3F;
 
     font-family:
         "Cormorant Garamond",
@@ -1506,17 +1800,17 @@ h3 {
         italic;
 
     letter-spacing:
-        3px;
+        2.5px;
 
     margin-top:
-        13px;
+        12px;
 }
 
 
 .footer-bottom {
 
     color:
-        #9C9182;
+        #A39788;
 
     font-family:
         "Inter",
@@ -1527,7 +1821,7 @@ h3 {
         8px;
 
     letter-spacing:
-        1.5px;
+        1.3px;
 
     margin-top:
         18px;
@@ -1543,18 +1837,17 @@ h3 {
     .block-container {
 
         padding-left:
-            0.8rem !important;
+            1rem !important;
 
         padding-right:
-            0.8rem !important;
+            1rem !important;
     }
 
 
     .luxury-header {
 
         padding:
-            34px 15px
-            32px 15px;
+            30px 15px;
 
         margin-bottom:
             30px;
@@ -1564,13 +1857,13 @@ h3 {
     .bmw-brand {
 
         font-size:
-            42px;
+            40px;
 
         letter-spacing:
-            11px;
+            9px;
 
         margin-left:
-            11px;
+            9px;
     }
 
 
@@ -1580,7 +1873,7 @@ h3 {
             8px;
 
         letter-spacing:
-            4px;
+            3px;
     }
 
 
@@ -1590,7 +1883,7 @@ h3 {
             14px;
 
         letter-spacing:
-            2px;
+            1.5px;
     }
 
 
@@ -1600,14 +1893,7 @@ h3 {
             8px;
 
         letter-spacing:
-            1px;
-    }
-
-
-    [data-testid="stForm"] {
-
-        padding:
-            8px 10px 20px 10px !important;
+            0.8px;
     }
 
 
@@ -1624,43 +1910,43 @@ h3 {
     }
 
 
-    .stTextInput input,
-    .stNumberInput input,
-    .stDateInput input,
-    .stTextArea textarea {
-
-        font-size:
-            15px !important;
-    }
-
-
     .stRadio > div {
-
-        flex-direction:
-            column !important;
-
-        align-items:
-            stretch !important;
-    }
-
-
-    .stRadio label {
 
         width:
             100% !important;
 
-        border-radius:
-            4px !important;
+        gap:
+            8px !important;
+    }
+
+
+    .stRadio > div > label {
+
+        min-width:
+            0 !important;
+
+        flex:
+            1 !important;
+
+        padding:
+            8px 10px !important;
+    }
+
+
+    .stRadio > div > label p {
+
+        font-size:
+            11px !important;
     }
 
 
     .footer-brand {
 
         font-size:
-            25px;
+            24px;
 
         letter-spacing:
-            8px;
+            7px;
     }
 }
 
@@ -1701,7 +1987,9 @@ def pdf_value(value):
 
 def save_to_excel(data):
 
-    new_data = pd.DataFrame([data])
+    new_data = pd.DataFrame(
+        [data]
+    )
 
     if os.path.exists(EXCEL_FILE):
 
@@ -1752,10 +2040,21 @@ def create_pdf(data):
 
     elements = []
 
-    DARK = colors.HexColor("#29241F")
-    GOLD = colors.HexColor("#9C7A45")
-    BEIGE = colors.HexColor("#E8DDCC")
-    LIGHT_BEIGE = colors.HexColor("#FFF8EC")
+    DARK = colors.HexColor(
+        "#29241F"
+    )
+
+    GOLD = colors.HexColor(
+        "#9C7A45"
+    )
+
+    BEIGE = colors.HexColor(
+        "#E8DDCC"
+    )
+
+    LIGHT_BEIGE = colors.HexColor(
+        "#FFF8EC"
+    )
 
     title_style = ParagraphStyle(
         "BMWTitle",
@@ -1852,7 +2151,9 @@ def create_pdf(data):
         )
     )
 
-    elements.append(header_line)
+    elements.append(
+        header_line
+    )
 
     elements.append(
         Spacer(1, 12)
@@ -1964,7 +2265,9 @@ def create_pdf(data):
         )
     )
 
-    elements.append(table)
+    elements.append(
+        table
+    )
 
     elements.append(
         Spacer(1, 25)
@@ -1992,7 +2295,9 @@ def create_pdf(data):
         )
     )
 
-    document.build(elements)
+    document.build(
+        elements
+    )
 
     buffer.seek(0)
 
@@ -2000,7 +2305,7 @@ def create_pdf(data):
 
 
 # ============================================================
-# BMW PAGE HEADER
+# LUXURY BMW PAGE HEADER
 # ============================================================
 
 st.markdown(
@@ -2010,11 +2315,11 @@ st.markdown(
 <div class="header-top-line"></div>
 
 <div class="bmw-brand">
-BMW
+    BMW
 </div>
 
 <div class="bmw-subtitle">
-VEHICLE QUOTATION
+    VEHICLE QUOTATION
 </div>
 
 <div class="header-divider">
@@ -2064,7 +2369,7 @@ with st.form("bmw_main_form"):
 
         customer_name = st.text_input(
             "Customer Full Name *",
-            placeholder="Enter customer name"
+            placeholder="Enter customer full name"
         )
 
         mobile_number = st.text_input(
@@ -2075,13 +2380,14 @@ with st.form("bmw_main_form"):
 
         email = st.text_input(
             "Email Address",
-            placeholder="customer@example.com"
+            placeholder="Enter email address"
         )
 
     with col2:
 
         enquiry_date = st.date_input(
-            "Enquiry Date"
+            "Enquiry Date",
+            format="DD-MM-YYYY"
         )
 
         city = st.text_input(
@@ -2139,7 +2445,7 @@ with st.form("bmw_main_form"):
 
         model = st.text_input(
             "Model Required *",
-            placeholder="Enter preferred model"
+            placeholder="Enter preferred BMW model"
         )
 
         exterior_colour = st.text_input(
@@ -2151,7 +2457,7 @@ with st.form("bmw_main_form"):
 
         variant = st.text_input(
             "Preferred Variant",
-            placeholder="Enter variant"
+            placeholder="Enter preferred variant"
         )
 
         interior_colour = st.text_input(
@@ -2203,7 +2509,7 @@ with st.form("bmw_main_form"):
 
         budget = st.text_input(
             "Approximate Budget",
-            placeholder="Enter approximate budget"
+            placeholder="e.g. ₹50,00,000"
         )
 
         expected_purchase = st.selectbox(
@@ -2219,7 +2525,7 @@ with st.form("bmw_main_form"):
         )
 
     # ========================================================
-    # CONTINUE
+    # CONTINUE BUTTON
     # ========================================================
 
     purchase_continue_clicked = st.form_submit_button(
@@ -2331,10 +2637,10 @@ if st.session_state["purchase_continue"]:
 
     st.markdown(
         """
-<div class="continue-status">
-✓ DETAILS SAVED — PLEASE COMPLETE THE QUOTATION
-</div>
-""",
+        <div class="continue-status">
+            ✓ DETAILS SAVED — PLEASE COMPLETE THE QUOTATION
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
@@ -2353,7 +2659,7 @@ if mobile_number:
 
 
 # ============================================================
-# SCRATCH CARD
+# SCRATCH CARD SECTION
 # ============================================================
 
 st.markdown(
@@ -2373,6 +2679,7 @@ discount_display = format_inr(
 # ============================================================
 
 scratch_html = f"""
+
 <!DOCTYPE html>
 
 <html>
@@ -2397,10 +2704,13 @@ body {{
 }}
 
 body {{
-    font-family:Georgia,serif;
+    font-family:
+        Georgia,
+        serif;
 }}
 
 .card {{
+
     position:relative;
 
     width:96%;
@@ -2435,7 +2745,8 @@ body {{
             #211d19
         );
 
-    border:2px solid #C8A45D;
+    border:
+        2px solid #C8A45D;
 
     box-shadow:
         0 15px 35px
@@ -2443,6 +2754,7 @@ body {{
 }}
 
 .prize {{
+
     position:absolute;
 
     inset:0;
@@ -2461,6 +2773,7 @@ body {{
 }}
 
 .small {{
+
     color:#D4BB8A;
 
     font-size:13px;
@@ -2471,6 +2784,7 @@ body {{
 }}
 
 .title {{
+
     color:#F7EFE2;
 
     font-size:24px;
@@ -2483,6 +2797,7 @@ body {{
 }}
 
 .amount {{
+
     color:#D8B45C;
 
     font-size:48px;
@@ -2493,6 +2808,7 @@ body {{
 }}
 
 .note {{
+
     color:#D7CCBD;
 
     font-size:12px;
@@ -2505,6 +2821,7 @@ body {{
 }}
 
 canvas {{
+
     position:absolute;
 
     left:0;
@@ -2523,6 +2840,7 @@ canvas {{
 }}
 
 .confetti {{
+
     position:fixed;
 
     width:8px;
@@ -2535,12 +2853,14 @@ canvas {{
 
     pointer-events:none;
 
-    animation:fall 3s linear forwards;
+    animation:
+        fall 3s linear forwards;
 }}
 
 @keyframes fall {{
 
     0% {{
+
         transform:
             translateY(0)
             rotate(0deg);
@@ -2549,6 +2869,7 @@ canvas {{
     }}
 
     100% {{
+
         transform:
             translateY(100vh)
             rotate(720deg);
@@ -2566,41 +2887,41 @@ canvas {{
 
 <div class="card">
 
-<div class="prize">
+    <div class="prize">
 
-<div class="small">
-CONGRATULATIONS
-</div>
+        <div class="small">
+            CONGRATULATIONS
+        </div>
 
-<div class="title">
-YOUR EXCLUSIVE DISCOUNT
-</div>
+        <div class="title">
+            YOUR EXCLUSIVE DISCOUNT
+        </div>
 
-<div class="amount">
-{discount_display}
-</div>
+        <div class="amount">
+            {discount_display}
+        </div>
 
-<div class="note">
-This exclusive BMW benefit will be
-included with your quotation request.
-</div>
+        <div class="note">
+            This exclusive BMW benefit will be
+            included with your quotation request.
+        </div>
 
-</div>
+    </div>
 
-<canvas id="canvas"></canvas>
+    <canvas id="canvas"></canvas>
 
 </div>
 
 <script>
 
 const canvas =
-document.getElementById("canvas");
+    document.getElementById("canvas");
 
 const ctx =
-canvas.getContext("2d");
+    canvas.getContext("2d");
 
 const card =
-document.querySelector(".card");
+    document.querySelector(".card");
 
 let scratching = false;
 
@@ -2752,6 +3073,7 @@ function position(event) {{
         canvas.getBoundingClientRect();
 
     let x;
+
     let y;
 
     if (
@@ -3020,6 +3342,7 @@ setTimeout(
 </body>
 
 </html>
+
 """
 
 
@@ -3036,13 +3359,11 @@ components.html(
 
 st.markdown(
     f"""
-<div class="discount-info">
-EXCLUSIVE BMW PRIVILEGE
-&nbsp;&nbsp; ◆ &nbsp;&nbsp;
-DISCOUNT VALUE:
-<b>{discount_display}</b>
-</div>
-""",
+    <div class="discount-info">
+        EXCLUSIVE BMW PRIVILEGE &nbsp; ◆ &nbsp;
+        DISCOUNT VALUE: <b>{discount_display}</b>
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
@@ -3089,12 +3410,12 @@ with st.form("bmw_final_form"):
 
         exchange_year = st.text_input(
             "Year of Manufacture",
-            placeholder="YYYY"
+            placeholder="e.g. 2022"
         )
 
         exchange_registration = st.text_input(
             "Registration Number",
-            placeholder="Enter registration number"
+            placeholder="e.g. MH01AB1234"
         )
 
     # ========================================================
@@ -3133,7 +3454,7 @@ with st.form("bmw_final_form"):
 
     remarks = st.text_area(
         "Additional Requirements / Remarks",
-        placeholder="Please mention any additional requirements..."
+        placeholder="Please enter any additional requirements..."
     )
 
     # ========================================================
@@ -3269,7 +3590,7 @@ if submit:
         try:
 
             # =================================================
-            # SAVE EXCEL
+            # SAVE TO EXCEL
             # =================================================
 
             save_to_excel(
@@ -3289,7 +3610,7 @@ if submit:
             ] = pdf_file.getvalue()
 
             # =================================================
-            # CUSTOMER NAME
+            # SAFE CUSTOMER NAME
             # =================================================
 
             safe_customer_name = re.sub(
@@ -3351,7 +3672,7 @@ st.markdown(
 <span></span>
 
 <div class="footer-diamond">
-◆
+    ◆
 </div>
 
 <span></span>
@@ -3359,19 +3680,19 @@ st.markdown(
 </div>
 
 <div class="footer-brand">
-BMW
+    BMW
 </div>
 
 <div class="footer-title">
-VEHICLE QUOTATION REQUEST
+    VEHICLE QUOTATION REQUEST
 </div>
 
 <div class="footer-tagline">
-SHEER DRIVING PLEASURE
+    SHEER DRIVING PLEASURE
 </div>
 
 <div class="footer-bottom">
-© BMW &nbsp; | &nbsp; CUSTOMER QUOTATION SERVICES
+    © BMW &nbsp; | &nbsp; CUSTOMER QUOTATION SERVICES
 </div>
 
 </div>
