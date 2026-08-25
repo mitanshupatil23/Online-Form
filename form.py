@@ -27,7 +27,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 # CONFIGURATION
 # ============================================================
 
-EXCEL_FILE = "quotation_responses.xlsx"
+EXCEL_FILE = r"C:\Users\mitanshu.patil\OneDrive - INFINITY CARS PRIVATE LIMITED\Desktop\Dashboard\quotation_responses.xlsx"
 
 st.set_page_config(
     page_title="BMW Vehicle Quotation Request",
